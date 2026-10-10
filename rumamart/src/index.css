@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Secondary palette: cream / beige */
+  --color-cream-50: #fdfaf3;
+  --color-cream-100: #f8f1e2;
+  --color-cream-200: #efe3c8;
+  --color-cream-300: #e3d1a8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 font-sans text-gray-800 antialiased;
+  }
+
+  /* Fokus keyboard yang jelas (aksesibilitas) */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-emerald-600;
+  }
+}
+
+/*
+  Komponen UI yang dipakai berulang (konsistensi tombol & input).
+  Catatan: Tailwind v4 tidak mengizinkan @apply memakai class custom,
+  jadi setiap class berikut ditulis lengkap.
+*/
+@layer components {
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-emerald-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-outline {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-emerald-600 bg-white px-5 py-2.5 text-sm font-semibold text-emerald-700 transition duration-200 hover:bg-emerald-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-soft {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-cream-100 px-5 py-2.5 text-sm font-semibold text-gray-800 transition duration-200 hover:bg-cream-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.25s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop-in,
+  .animate-slide-up {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
